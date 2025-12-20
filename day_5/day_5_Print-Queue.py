@@ -2,25 +2,25 @@ import re
 from typing import Dict, List
 
 
-def part_1(regras: Dict[str, List[str]], atualizacoes: list[str]):
+def valida_atualizacao(regras: Dict[str, List[str]], atualizacao: list[str]) -> bool:
+    for i in range(len(atualizacao) - 1):
+        atual = atualizacao[i]
+        proximo = atualizacao[i + 1]
+        valores = regras.get(atual, [])
+
+        if proximo not in valores:
+            return False
+
+    return True
+
+
+def part_1(regras: Dict[str, List[str]], atualizacoes: list[str]) -> int:
     total = 0
-    is_valido = False
 
     for atualizacao in atualizacoes:
         atualizacao = atualizacao.split(',')
 
-        for i in range(len(atualizacao) - 1):
-            is_valido = False
-            num_atual = atualizacao[i]
-            num_proximo = atualizacao[i + 1]
-            valores = regras.get(num_atual, [])
-
-            if num_proximo in valores:
-                is_valido = True
-            else:
-                break
-
-        if is_valido:
+        if valida_atualizacao(regras, atualizacao):
             total += int(atualizacao[len(atualizacao) // 2])
 
     return total
