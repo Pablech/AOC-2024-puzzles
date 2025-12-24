@@ -34,7 +34,7 @@ def dampener(relatorio: list[int]) -> bool:
 
 
 def main():
-    with open('relatorios.txt', 'r', encoding='utf-8') as arquivo:
+    with open('input.txt', 'r', encoding='utf-8') as arquivo:
         relatorios = arquivo.read().split('\n')
 
     seguros = 0

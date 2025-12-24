@@ -25,7 +25,7 @@ def parte_2(esquerda: set[int], direita: list[int]) -> int:
 
 
 def main():
-    with open('IDs.txt', 'r', encoding='utf-8') as arquivo:
+    with open('input.txt', 'r', encoding='utf-8') as arquivo:
         ids = arquivo.read()
 
     lista_ids = ids.split()

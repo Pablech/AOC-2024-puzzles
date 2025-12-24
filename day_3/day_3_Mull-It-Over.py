@@ -35,7 +35,7 @@ def part_2(arquivo: str) -> int:
 
 
 def main():
-    with open('Mull.txt', 'r', encoding='utf-8') as f:
+    with open('input.txt', 'r', encoding='utf-8') as f:
         arquivo = f.read()
 
     print(f'Parte 1 = {part_1(arquivo)}')

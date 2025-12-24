@@ -57,7 +57,7 @@ def part_1(regras_dict: Dict[str, List[str]], atualizacoes: List[str]) -> int:
 
 
 def main():
-    with open('protocolos.txt', 'r', encoding='utf-8') as arquivo:
+    with open('input.txt', 'r', encoding='utf-8') as arquivo:
         arquivo = arquivo.read()
 
     regex = r'(\d{2})\|(\d{2})'

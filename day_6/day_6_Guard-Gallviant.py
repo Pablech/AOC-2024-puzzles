@@ -1,31 +1,34 @@
 import time, sys, os
 
 MAPA = []
-VISITADOS = set()
+VISITADOS_PART_1 = []
+VISITADOS_PART_2 = []
 
 
 def imprime_mapa():
-    sys.stdout.write("\033[H")
+    sys.stdout.write('\033[H')
 
     for linha in MAPA:
-        sys.stdout.write("".join(linha) + "\n")
+        sys.stdout.write(''.join(linha) + '\n')
 
     sys.stdout.flush()
 
 
 def inicio() -> tuple[int, int]:
+    global MAPA
+
     indx_iniciais = ()
 
     for i in range(len(MAPA)):
         if '^' in MAPA[i]:
             indx_iniciais = (i, MAPA[i].index('^'))
-            MAPA[int(indx_iniciais[0])][int(indx_iniciais[1])] = '▲'
+            MAPA[indx_iniciais[0]][indx_iniciais[1]] = '▲'
 
     return indx_iniciais
 
 
 def mover(movimento: str, atual: tuple[int, int], proximo: tuple[int, int]) -> bool:
-    global MAPA, VISITADOS
+    global MAPA, VISITADOS_PART_1, VISITADOS_PART_2
 
     atual_i, atual_j = atual
     proximo_i, proximo_j = proximo
@@ -43,18 +46,19 @@ def mover(movimento: str, atual: tuple[int, int], proximo: tuple[int, int]) -> b
         try:
             MAPA[proximo_i][proximo_j] = movimentos[movimento_atual]
             MAPA[atual_i][atual_j] = marcacao
-            VISITADOS.add((proximo_i, proximo_j))
+            VISITADOS_PART_1.append((proximo_i, proximo_j))
+            VISITADOS_PART_2.append((MAPA[atual_i][atual_j], atual_i, atual_i))
             return True
         except IndexError:
-            MAPA[atual_i][atual_j] = marcacao
             return False
 
 
 def part_1():
-    global VISITADOS, MAPA
+    global VISITADOS_PART_1, MAPA, VISITADOS_PART_2
 
     i, j = inicio()
-    VISITADOS.add((i, j))
+    VISITADOS_PART_1.append((i, j))
+    VISITADOS_PART_2.append((MAPA[i][j], i, j))
     avancar = True
     atual, proximo = (), ()
 
@@ -78,11 +82,13 @@ def part_1():
             if MAPA[i][j] == '#':
                 i, j = atual
         except IndexError:
+            i, j = atual
+            MAPA[i][j] = '✗'
             break
 
         avancar = mover(movimento=movimento, atual=atual, proximo=proximo)
 
-        # DESCOMENTE AS DUAS PRÓXIMAS LINHAS PARA VER O GUARDA ANDANDO PELO MAPA
+        # DESCOMENTE PARA VER O GUARDA ANDANDO PELO MAPA
         # imprime_mapa()
         # time.sleep(0.03)
 
@@ -90,14 +96,13 @@ def part_1():
 def main():
     global MAPA
 
-    with open('mapa.txt', 'r', encoding='utf-8') as arquivo:
+    with open('input.txt', 'r', encoding='utf-8') as arquivo:
         MAPA = [list(linha) for linha in arquivo.read().splitlines()]
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
     part_1()
-    print(f'Total: {len(VISITADOS)}')
-
+    print(f'Total part 1: {len(set(VISITADOS_PART_1))}')
 
 if __name__ == '__main__':
     main()

@@ -42,7 +42,7 @@ def part_2(arquivo: list[str]) -> int:
 
 
 def main():
-    with open('Ceres.txt', 'r', encoding='utf-8') as arquivo:
+    with open('input.txt', 'r', encoding='utf-8') as arquivo:
         arquivo = arquivo.read()
 
     arquivo = arquivo.split()
