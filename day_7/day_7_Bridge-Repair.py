@@ -71,7 +71,7 @@ def main():
     total_part_1, arquivo_part_2 = part_1(arquivo)
     total_parte_2 = part_2(arquivo_part_2)
 
-    print(f'Total parte 1: {total_part_1}')
+    print(f'Total part 1: {total_part_1}')
     print(f'Total part 2: {total_part_1 + total_parte_2}')
 
 
