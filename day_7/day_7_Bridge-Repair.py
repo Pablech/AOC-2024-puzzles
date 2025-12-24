@@ -55,8 +55,6 @@ def part_2(linhas_invalidas: list[str]) -> int:
     total = 0
 
     for linha in linhas_invalidas:
-        if not linha:
-            continue
         partes = list(map(int, linha.split()))
         total_linha, numeros = partes[0], partes[1:]
 
@@ -73,6 +71,7 @@ def main():
     total_part_1, arquivo_part_2 = part_1(arquivo)
     total_parte_2 = part_2(arquivo_part_2)
 
+    print('Do jeito Pablo de programar :(')
     print(f'Total parte 1: {total_part_1}')
     print(f'Total part 2: {total_part_1 + total_parte_2}')
 
