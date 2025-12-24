@@ -1,12 +1,12 @@
---- Dia 7: Reparação de Pontes ---
+--- Day 7: Bridge Repair ---
 
-Os historiadores levam-no a uma ponte de corda familiar sobre um rio no meio de uma selva. O Chefe não está deste lado da ponte, no entanto; talvez ele esteja do outro lado?
+The Historians take you to a familiar rope bridge over a river in the middle of a jungle. The Chief isn't on this side of the bridge, though; maybe he's on the other side?
 
-Quando você vai atravessar a ponte, você percebe um grupo de engenheiros tentando repará-la. (Aparentemente, ele quebra com bastante frequência.) Você não poderá atravessar até que seja fixo.
+When you go to cross the bridge, you notice a group of engineers trying to repair it. (Apparently, it breaks pretty frequently.) You won't be able to cross until it's fixed.
 
-Você pergunta quanto tempo levará; os engenheiros dizem que ele só precisa de calibrações finais, mas alguns jovens elefantes estavam brincando nas proximidades e roubaram todos os operadores de suas equações de calibração! Eles poderiam terminar as calibrações se apenas alguém pudesse determinar quais valores de teste poderiam ser produzidos colocando qualquer combinação de operadores em suas equações de calibração (sua entrada de quebra-cabeça).
+You ask how long it'll take; the engineers tell you that it only needs final calibrations, but some young elephants were playing nearby and stole all the operators from their calibration equations! They could finish the calibrations if only someone could determine which test values could possibly be produced by placing any combination of operators into their calibration equations (your puzzle input).
 
-Por exemplo:
+For example:
 
 190: 10 19
 
@@ -26,36 +26,38 @@ Por exemplo:
 
 292: 11 6 16 20
 
-Cada linha representa uma única equação. O valor do teste aparece antes do cólon em cada linha; é seu trabalho determinar se os números restantes podem ser combinados com os operadores para produzir o valor de teste.
+Each line represents a single equation. The test value appears before the colon on each line; it is your job to determine whether the remaining numbers can be combined with operators to produce the test value.
 
-Os operadores são sempre avaliada da esquerda para a direita, não de acordo com as regras de precedência. Além disso, os números nas equações não podem ser reorganizados. Olhando para a selva, você pode ver elefantes segurando dois tipos diferentes de operadores: adicionar (+) e multiplicar (*).
+Operators are always evaluated left-to-right, not according to precedence rules. Furthermore, numbers in the equations cannot be rearranged. Glancing into the jungle, you can see elephants holding two different types of operators: add (+) and multiply (*).
 
-Apenas três das equações acima podem ser tornadas verdadeiras inserindo operadores:
+Only three of the above equations can be made true by inserting operators:
 
-    190: 10 19 tem apenas uma posição que aceita um operador: entre 10 e 19. Escolhendo + daria 29, mas escolhendo * daria o valor de teste (10 * 19 = 190).
-    3267: 81 40 27 tem duas posições para os operadores. Das quatro configurações possíveis dos operadores, dois fazer com que o lado direito corresponda ao valor do teste: 81 + 40 * 27 e 81 * 40 + 27 tanto iguais 3267 (quando avaliado da esquerda para a direita)!
-    292: 11 6 16 20 pode ser resolvido exatamente de uma forma: 11 + 6 * 16 + 20.
+    190: 10 19 has only one position that accepts an operator: between 10 and 19. Choosing + would give 29, but choosing * would give the test value (10 * 19 = 190).
+    3267: 81 40 27 has two positions for operators. Of the four possible configurations of the operators, two cause the right side to match the test value: 81 + 40 * 27 and 81 * 40 + 27 both equal 3267 (when evaluated left-to-right)!
+    292: 11 6 16 20 can be solved in exactly one way: 11 + 6 * 16 + 20.
 
-Os engenheiros só precisam do resultado total de calibração, que é a soma dos valores de teste a partir de apenas as equações que poderiam ser verdadeiras. No exemplo acima, a soma dos valores de teste para as três equações listadas acima é 3749.
+The engineers just need the total calibration result, which is the sum of the test values from just the equations that could possibly be true. In the above example, the sum of the test values for the three equations listed above is 3749.
 
-Determine quais equações poderiam ser verdadeiras. Qual é o resultado total da calibração?
+Determine which equations could possibly be true. What is their total calibration result?
 
-A sua resposta de puzzle foi 3351424677624.
+Your puzzle answer was 3351424677624.
 
-A primeira metade deste puzzle está completa! Ele fornece uma estrela dourada: *
+--- Part Two ---
 
---- Parte Dois ---
+The engineers seem concerned; the total calibration result you gave them is nowhere close to being within safety tolerances. Just then, you spot your mistake: some well-hidden elephants are holding a third type of operator.
 
-Os engenheiros parecem preocupados; o resultado total de calibração que você lhes deu não está nem perto de estar dentro das tolerâncias de segurança. Só então, você vê seu erro: alguns elefantes bem escondidos estão segurando um terceiro tipo de operador.
+The concatenation operator (||) combines the digits from its left and right inputs into a single number. For example, 12 || 345 would become 12345. All operators are still evaluated left-to-right.
 
-O concatenação operador (||) combina os dígitos de suas entradas esquerda e direita em um único número. Por exemplo, 12 || 345 se tornaria 12345. Todos os operadores ainda são avaliados da esquerda para a direita.
+Now, apart from the three equations that could be made true using only addition and multiplication, the above example has three more equations that can be made true by inserting operators:
 
-Agora, além das três equações que poderiam ser tornadas verdadeiras usando apenas adição e multiplicação, o exemplo acima tem mais três equações que podem ser tornadas verdadeiras inserindo operadores:
+    156: 15 6 can be made true through a single concatenation: 15 || 6 = 156.
+    7290: 6 8 6 15 can be made true using 6 * 8 || 6 * 15.
+    192: 17 8 14 can be made true using 17 || 8 + 14.
 
-    156: 15 6 pode ser feito verdadeiro através de uma única concatenação: 15 || 6 = 156.
-    7290: 6 8 6 15 pode ser tornado verdadeiro usando 6 * 8 || 6 * 15.
-    192: 17 8 14 pode ser tornado verdadeiro usando 17 || 8 + 14.
+Adding up all six test values (the three that could be made before using only + and * plus the new three that can now be made by also using ||) produces the new total calibration result of 11387.
 
-Somando todos os seis valores de teste (os três que poderiam ser feitos antes de usar apenas + e * mais os novos três que agora podem ser feitos usando também ||) produz o novo resultado total de calibração de 11387.
+Using your new knowledge of elephant hiding spots, determine which equations could possibly be true. What is their total calibration result?
 
-Usando seu novo conhecimento de esconderijos de elefantes, determine quais equações poderiam ser verdadeiras. Qual é o resultado total da calibração?
+Your puzzle answer was 204976636995111.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
