@@ -11,6 +11,7 @@ def descompacta_arquivo(arquivo: str) -> list[str]:
                 arquivo_descompactado += (str(i) + ' ') * blocos[i]
             else:
                 arquivo_descompactado += '. ' * espacos[i]
+
     return arquivo_descompactado.split()
 
 
@@ -41,7 +42,7 @@ def part_1(arquivo_corrigido: list[str]) -> int:
         try:
             total += i * int(arquivo_corrigido[i])
         except ValueError:
-            print(arquivo_corrigido[i], i)
+            pass
 
     return total
 

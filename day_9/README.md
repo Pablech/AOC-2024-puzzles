@@ -23,26 +23,44 @@ O primeiro exemplo acima, 2333133121414131402, representa estes blocos individua
 O anfípode gostaria de mover blocos de arquivo um de cada vez do final do disco para o bloco de espaço livre mais à esquerda (até que não haja lacunas restantes entre os blocos de arquivos). Para o mapa do disco 12345, o processo se parece com isso:
 
 0..111....22222
+
 02.111....2222.
+
 022111....222..
+
 0221112...22...
+
 02211122..2....
+
 022111222......
 
 O primeiro exemplo requer mais alguns passos:
 
 00...111...2...333.44.5555.6666.777.888899
+
 009..111...2...333.44.5555.6666.777.88889.
+
 0099.111...2...333.44.5555.6666.777.8888..
+
 00998111...2...333.44.5555.6666.777.888...
+
 009981118..2...333.44.5555.6666.777.88....
+
+
 0099811188.2...333.44.5555.6666.777.8.....
+
 009981118882...333.44.5555.6666.777.......
+
 0099811188827..333.44.5555.6666.77........
+
 00998111888277.333.44.5555.6666.7.........
+
 009981118882777333.44.5555.6666...........
+
 009981118882777333644.5555.666............
+
 00998111888277733364465555.66.............
+
 0099811188827773336446555566..............
 
 A etapa final deste processo de compactação de arquivos é atualizar o análise de verificação do sistema de arquivos. Para calcular a soma de verificação, adicione o resultado de multiplicar cada posição desses blocos com o número de identificação do arquivo que ele contém. O bloco mais à esquerda está em posição 0. Se um bloco contiver espaço livre, pule-o em vez disso.
@@ -66,9 +84,13 @@ Desta vez, tente mover arquivos inteiros para o vão mais à esquerda de blocos 
 O primeiro exemplo de cima agora prossegue de forma diferente:
 
 00...111...2...333.44.5555.6666.777.888899
+
 0099.111...2...333.44.5555.6666.777.8888..
+
 0099.1117772...333.44.5555.6666.....8888..
+
 0099.111777244.333....5555.6666.....8888..
+
 00992111777.44.333....5555.6666.....8888..
 
 O processo de atualização da soma de verificação do sistema de arquivos é o mesmo; agora, a soma de verificação deste exemplo seria 2858.
