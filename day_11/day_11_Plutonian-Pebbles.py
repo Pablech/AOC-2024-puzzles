@@ -1,32 +1,40 @@
-def part_1(entrada: list[str], j: int = 0) -> list[str]:
-    while j <= 24:
-        temp_entrada = []
-
-        for i in range(len(entrada)):
-
-            if entrada[i] == '0':
-                temp_entrada.append('1')
-
-            elif len(entrada[i]) % 2 == 0:
-                metade = len(entrada[i]) // 2
-                temp_entrada.append(str(int(entrada[i][:metade])))
-                temp_entrada.append(str(int(entrada[i][metade:])))
-
-            else:
-                vezes = int(entrada[i]) * 2024
-                temp_entrada.append(str(vezes))
-
-        return part_1(temp_entrada, j + 1)
-
-    return entrada
+from collections import Counter
 
 
-def main():
-    with open('input.txt', 'r', encoding='utf-8') as f:
-        pedras = f.read().split()
+def blink(contagem: dict[int, int]) -> dict[int, int]:
+    temp_contagem = Counter()
 
-    print(len(part_1(pedras)))
+    for pedra, quantidade in contagem.items():
+
+        if pedra == 0:
+            temp_contagem[1] += quantidade
+
+        elif len(str(pedra)) % 2 == 0:
+            pedras_str = str(pedra)
+            metade = len(pedras_str) // 2
+            esquerda = int(pedras_str[:metade])
+            direita = int(pedras_str[metade:])
+            temp_contagem[esquerda] += quantidade
+            temp_contagem[direita] += quantidade
+
+        else:
+            temp_contagem[pedra * 2024] += quantidade
+
+    return temp_contagem
+
+
+def main(entrada: list[str], blinks: int):
+    pedras = Counter(map(int, entrada))
+
+    for b in range(blinks):
+        pedras = blink(pedras)
+
+    return sum(pedras.values())
 
 
 if __name__ == '__main__':
-    main()
+    with open('input.txt', 'r', encoding='utf-8') as f:
+        entrada = f.read().split()
+
+    print(main(entrada, 25))
+    print(main(entrada, 75))

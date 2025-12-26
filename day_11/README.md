@@ -64,3 +64,7 @@ The first half of this puzzle is complete! It provides one gold star: *
 The Historians sure are taking a long time. To be fair, the infinite corridors are very large.
 
 How many stones would you have after blinking a total of 75 times?
+
+Your puzzle answer was 257335372288947.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
