@@ -1,7 +1,40 @@
+from typing import Any
+
 VISITADOS = set()
 
 
-def perimetro_e_area(grupo: set[tuple[int, int]]) -> tuple[int, int]:
+def lados_parte_2(grupo: tuple[set[Any]] | set[tuple[int, int]], mapa: list[list[str]]) -> int:
+    vertices = 0
+
+    def vizinho(r: int, c: int) -> str:
+        if 0 <= r < len(mapa) and 0 <= c < len(mapa[0]):
+            return mapa[r][c]
+        return ' '
+
+    cantos = [
+        ((-1, 0), (0, -1), (-1, -1)),
+        ((-1, 0), (0, 1), (- 1, 1)),
+        ((1, 0), (0, - 1), (1, - 1)),
+        ((1, 0), (0, 1), (1, 1))
+    ]
+
+    for i, j in grupo:
+
+        eixo = mapa[i][j]
+        for k_c, l_c, m_c in cantos:
+            k = vizinho(i + k_c[0], j + k_c[1])
+            l = vizinho(i + l_c[0], j + l_c[1])
+            m = vizinho(i + m_c[0], j + m_c[1])
+
+            if eixo != k and eixo != l:
+                vertices += 1
+            elif eixo == k and eixo == l and eixo != m:
+                vertices += 1
+
+    return vertices
+
+
+def perimetro_e_area_parte_1(grupo: set[tuple[int, int]]) -> tuple[int, int]:
     perimetro = 0
 
     for i, j in grupo:
@@ -13,8 +46,8 @@ def perimetro_e_area(grupo: set[tuple[int, int]]) -> tuple[int, int]:
     return perimetro, len(grupo)
 
 
-def mapear(mapa: list[list[str]], inicio: tuple[int, int], alvo: str, grupo_param: set[tuple[int, int]]) -> tuple[
-    int, int]:
+def mapear(mapa: list[list[str]], inicio: tuple[int, int], alvo: str, grupo_param: set[tuple[int, int]]) -> \
+        tuple[set[Any]] | set[tuple[int, int]]:
     global VISITADOS
 
     altura = len(mapa)
@@ -48,7 +81,7 @@ def mapear(mapa: list[list[str]], inicio: tuple[int, int], alvo: str, grupo_para
             grupo.add((i, j))
             mapear(mapa, (i, j), alvo, grupo)
 
-    return perimetro_e_area(grupo)
+    return grupo
 
 
 def main():
@@ -57,14 +90,21 @@ def main():
     with open('input.txt', 'r', encoding='utf-8') as f:
         mapa = [list(linha) for linha in f.read().splitlines()]
 
-    preco = 0
+    preco_parte_1 = 0
+    preco_parte_2 = 0
+
+    visitados = set()
     for i in range(len(mapa)):
         for j in range(len(mapa[i])):
             if (i, j) not in VISITADOS:
-                perimetro, area = mapear(mapa, (i, j), mapa[i][j], set())
-                preco += perimetro * area
+                grupo = mapear(mapa, (i, j), mapa[i][j], set())
 
-    print(f'Total part 1: {preco}')
+                perimetro, area = perimetro_e_area_parte_1(grupo)
+                preco_parte_1 += perimetro * area
+                preco_parte_2 += lados_parte_2(grupo, mapa) * area
+
+    print(f'Total part 1: {preco_parte_1}')
+    print(f'Total part 2: {preco_parte_2}')
 
 
 if __name__ == '__main__':
