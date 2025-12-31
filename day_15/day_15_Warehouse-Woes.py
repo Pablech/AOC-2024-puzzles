@@ -32,8 +32,8 @@ def gps(mapa: list[list[str]]) -> int:
     return total
 
 
-def mover(mapa: list[list[str]], movimentos: str, bot_indx: tuple[int, int], parte_2: bool = False):
-    bot_str, vazio, caixa, obstaculo = '@', '.', 'O' if not parte_2 else '[]', '#'
+def mover(mapa: list[list[str]], movimentos: str, bot_indx: tuple[int, int]):
+    bot_str, vazio, caixa, obstaculo = '@', '.', 'O', '#'
     dict_movimentos = {
         '<': (0, -1),
         '^': (-1, 0),
