@@ -22,7 +22,6 @@ def part_2(arquivo: str) -> int:
 
     for m in matches:
         instrucao = m.group(0)
-        print(m,'\n\n')
         if instrucao == "do()":
             ativo = True
         elif instrucao == "don't()":

@@ -2,7 +2,6 @@ import time, sys, os
 
 MAPA = []
 VISITADOS_PART_1 = []
-VISITADOS_PART_2 = []
 
 
 def imprime_mapa():
@@ -28,7 +27,7 @@ def inicio() -> tuple[int, int]:
 
 
 def mover(movimento: str, atual: tuple[int, int], proximo: tuple[int, int]) -> bool:
-    global MAPA, VISITADOS_PART_1, VISITADOS_PART_2
+    global MAPA, VISITADOS_PART_1
 
     atual_i, atual_j = atual
     proximo_i, proximo_j = proximo
@@ -47,18 +46,16 @@ def mover(movimento: str, atual: tuple[int, int], proximo: tuple[int, int]) -> b
             MAPA[proximo_i][proximo_j] = movimentos[movimento_atual]
             MAPA[atual_i][atual_j] = marcacao
             VISITADOS_PART_1.append((proximo_i, proximo_j))
-            VISITADOS_PART_2.append((MAPA[atual_i][atual_j], atual_i, atual_i))
             return True
         except IndexError:
             return False
 
 
 def part_1():
-    global VISITADOS_PART_1, MAPA, VISITADOS_PART_2
+    global VISITADOS_PART_1, MAPA
 
     i, j = inicio()
     VISITADOS_PART_1.append((i, j))
-    VISITADOS_PART_2.append((MAPA[i][j], i, j))
     avancar = True
     atual, proximo = (), ()
 
@@ -90,7 +87,7 @@ def part_1():
 
         # DESCOMENTE PARA VER O GUARDA ANDANDO PELO MAPA
         # imprime_mapa()
-        # time.sleep(0.03)
+        # time.sleep(0.02)
 
 
 def main():
@@ -103,6 +100,7 @@ def main():
 
     part_1()
     print(f'Total part 1: {len(set(VISITADOS_PART_1))}')
+    
 
 if __name__ == '__main__':
     main()

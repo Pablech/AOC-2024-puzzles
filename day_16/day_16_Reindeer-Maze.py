@@ -25,11 +25,12 @@ def part_1(grade: List[List[str]], d_ini: str, start: Tuple[int, int]) -> int | 
 
         idx = dirs_keys.index(d)
 
-        gir_dir = dirs_keys[(idx + 1) % 4]
-        pq.put((cost + 1000, r, c, gir_dir))
+        giro = dirs_keys[(idx + 1) % 4]
+        pq.put((cost + 1000, r, c, giro))
 
-        gir_dir = dirs_keys[(idx - 1) % 4]
-        pq.put((cost + 1000, r, c, gir_dir))
+        giro = dirs_keys[(idx - 1) % 4]
+        pq.put((cost + 1000, r, c, giro))
+
 
     return None
 

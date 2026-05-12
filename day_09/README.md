@@ -1,98 +1,112 @@
---- Dia 9: Fragmentador de Disco ---
+## --- Day 9: Disk Fragmenter ---
 
-Outro apertar do botão deixa você nos corredores familiares de alguns anfípodes amigáveis! Ainda bem que cada um deles tem o seu mini submarino pessoal. Os historiadores se afastam em busca do Chefe, principalmente dirigindo diretamente para as paredes.
+Another push of the button leaves you in the familiar hallways of some friendly [amphipods](https://adventofcode.com/2021/day/23)!
+ Good thing you each somehow got your own personal mini submarine. The
+Historians jet away in search of the Chief, mostly by driving directly
+into walls.
 
-Enquanto os historiadores rapidamente descobrem como pilotar essas coisas, você percebe um anfípode no canto lutando com seu computador. Ele está tentando fazer um espaço livre mais contíguo compactando todos os arquivos, mas seu programa não está funcionando; você se oferece para ajudar.
+While The Historians quickly figure out how to pilot these things,
+you notice an amphipod in the corner struggling with his computer. He's
+trying to make more contiguous free space by compacting all of the
+files, but his program isn't working; you offer to help.
 
-Ele mostra o mapa do disco (sua entrada de quebra-cabeça) que ele já gerou. Por exemplo:
+He shows you the *disk map* (your puzzle input) he's already generated. For example:
 
+```
 2333133121414131402
+```
 
-O mapa de disco usa um formato denso para representar o layout de arquivos e espaço livre no disco. Os dígitos alternam entre indicar o comprimento de um arquivo e o comprimento do espaço livre.
+The disk map uses a dense format to represent the layout of *files* and *free space* on the disk. The digits alternate between indicating the length of a file and the length of free space.
 
-Então, um mapa de disco como 12345 representaria um arquivo de um bloco, dois blocos de espaço livre, um arquivo de três blocos, quatro blocos de espaço livre e, em seguida, um arquivo de cinco blocos. Um mapa de disco como 90909 representaria três arquivos de nove blocos seguidos (sem espaço livre entre eles).
+So, a disk map like `12345` would represent a one-block
+file, two blocks of free space, a three-block file, four blocks of free
+space, and then a five-block file. A disk map like `90909` would represent three nine-block files in a row (with no free space between them).
 
-Cada arquivo no disco também tem um Número de identificação com base na ordem dos arquivos como eles aparecem antes eles são reorganizados, começando com o ID 0. Então, o mapa do disco 12345 tem três arquivos: um arquivo de um bloco com ID 0, um arquivo de três blocos com ID 1, e um arquivo de cinco blocos com ID 2. Usando um caractere para cada bloco onde os dígitos são o ID do arquivo e . é espaço livre, o mapa de disco 12345 representa estes blocos individuais:
+Each file on disk also has an *ID number* based on the order of the files as they appear *before* they are rearranged, starting with ID `0`. So, the disk map `12345` has three files: a one-block file with ID `0`, a three-block file with ID `1`, and a five-block file with ID `2`. Using one character for each block where digits are the file ID and `.` is free space, the disk map `12345` represents these individual blocks:
 
+```
 0..111....22222
+```
 
-O primeiro exemplo acima, 2333133121414131402, representa estes blocos individuais:
+The first example above, `2333133121414131402`, represents these individual blocks:
 
+```
 00...111...2...333.44.5555.6666.777.888899
+```
 
-O anfípode gostaria de mover blocos de arquivo um de cada vez do final do disco para o bloco de espaço livre mais à esquerda (até que não haja lacunas restantes entre os blocos de arquivos). Para o mapa do disco 12345, o processo se parece com isso:
+The amphipod would like to *move file blocks one at a time*
+from the end of the disk to the leftmost free space block (until there
+are no gaps remaining between file blocks). For the disk map `12345`, the process looks like this:
 
+```
 0..111....22222
-
 02.111....2222.
-
 022111....222..
-
 0221112...22...
-
 02211122..2....
-
 022111222......
+```
 
-O primeiro exemplo requer mais alguns passos:
+The first example requires a few more steps:
 
+```
 00...111...2...333.44.5555.6666.777.888899
-
 009..111...2...333.44.5555.6666.777.88889.
-
 0099.111...2...333.44.5555.6666.777.8888..
-
 00998111...2...333.44.5555.6666.777.888...
-
 009981118..2...333.44.5555.6666.777.88....
-
-
 0099811188.2...333.44.5555.6666.777.8.....
-
 009981118882...333.44.5555.6666.777.......
-
 0099811188827..333.44.5555.6666.77........
-
 00998111888277.333.44.5555.6666.7.........
-
 009981118882777333.44.5555.6666...........
-
 009981118882777333644.5555.666............
-
 00998111888277733364465555.66.............
-
 0099811188827773336446555566..............
+```
 
-A etapa final deste processo de compactação de arquivos é atualizar o análise de verificação do sistema de arquivos. Para calcular a soma de verificação, adicione o resultado de multiplicar cada posição desses blocos com o número de identificação do arquivo que ele contém. O bloco mais à esquerda está em posição 0. Se um bloco contiver espaço livre, pule-o em vez disso.
+The final step of this file-compacting process is to update the  *filesystem checksum* .
+ To calculate the checksum, add up the result of multiplying each of
+these blocks' position with the file ID number it contains. The leftmost
+ block is in position `0`. If a block contains free space, skip it instead.
 
-Continuando o primeiro exemplo, a posição dos primeiros blocos multiplicada pelo número de identificação do arquivo é 0 * 0 = 0, 1 * 0 = 0, 2 * 9 = 18, 3 * 9 = 27, 4 * 8 = 32, e assim por diante. Neste exemplo, a soma de verificação é a soma destes, 1928.
+Continuing the first example, the first few blocks' position multiplied by its file ID number are `0 * 0 = 0`, `1 * 0 = 0`, `2 * 9 = 18`, `3 * 9 = 27`, `4 * 8 = 32`, and so on. In this example, the checksum is the sum of these, `<em>1928</em>`.
 
-Compacte o disco rígido do anfípode usando o processo que ele solicitou. Qual é a soma de verificação do sistema de arquivos resultante? (Tenha cuidado com a cópia/colagem da entrada para este quebra-cabeça; é uma linha única e muito longa.)
+Compact the amphipod's hard drive using the process he requested. *What is the resulting filesystem checksum?* **(Be careful copy/pasting the input for this puzzle; it is a single, very long line.)**
 
-A sua resposta de puzzle foi 6340197768906.
+Your puzzle answer was `6340197768906`.
 
-A primeira metade deste puzzle está completa! Ele fornece uma estrela dourada: *
+The first half of this puzzle is complete! It provides one gold star: *
 
---- Parte Dois ---
+## --- Part Two ---
 
-Após a conclusão, duas coisas imediatamente se tornam claras. Primeiro, o disco definitivamente tem muito mais espaço livre contíguo, assim como o anfípode esperava. Segundo, o computador está funcionando muito mais devagar! Talvez a introdução de toda essa fragmentação do sistema de arquivos tenha sido uma má ideia?
+Upon
+completion, two things immediately become clear. First, the disk
+definitely has a lot more contiguous free space, just like the amphipod
+hoped. Second, the computer is running much more slowly! Maybe
+introducing all of that [file system fragmentation](https://en.wikipedia.org/wiki/File_system_fragmentation) was a bad idea?
 
-O anfípode ansioso já tem um novo plano: em vez de mover blocos individuais, ele gostaria de tentar compactar os arquivos em seu disco movendo arquivos inteiros em vez disso.
+The eager amphipod already has a new plan: rather than move
+individual blocks, he'd like to try compacting the files on his disk by
+moving *whole files* instead.
 
-Desta vez, tente mover arquivos inteiros para o vão mais à esquerda de blocos de espaço livre que poderiam caber o arquivo. Tente mover cada arquivo exatamente uma vez, a fim de diminuir o número de identificação do arquivo, começando com o arquivo com o número de identificação de arquivo mais alto. Se não houver nenhum espaço livre à esquerda de um arquivo que seja grande o suficiente para caber no arquivo, o arquivo não se move.
+This time, attempt to move whole files to the leftmost span of free
+space blocks that could fit the file. Attempt to move each file exactly
+once in order of *decreasing file ID number* starting with the
+file with the highest file ID number. If there is no span of free space
+to the left of a file that is large enough to fit the file, the file
+does not move.
 
-O primeiro exemplo de cima agora prossegue de forma diferente:
+The first example from above now proceeds differently:
 
+```
 00...111...2...333.44.5555.6666.777.888899
-
 0099.111...2...333.44.5555.6666.777.8888..
-
 0099.1117772...333.44.5555.6666.....8888..
-
 0099.111777244.333....5555.6666.....8888..
-
 00992111777.44.333....5555.6666.....8888..
+```
 
-O processo de atualização da soma de verificação do sistema de arquivos é o mesmo; agora, a soma de verificação deste exemplo seria 2858.
+The process of updating the filesystem checksum is the same; now, this example's checksum would be `<em>2858</em>`.
 
-Comece de novo, agora compactando o disco rígido do anfípode usando esse novo método. Qual é a soma de verificação do sistema de arquivos resultante?
+Start over, now compacting the amphipod's hard drive using this new method instead. *What is the resulting filesystem checksum?*

@@ -1,19 +1,32 @@
---- Dia 15: Aflições do Armazém ---
+## --- Day 15: Warehouse Woes ---
 
-Você aparece de volta dentro de seu próprio mini submarino! Cada historiador dirige seu mini submarino em uma direção diferente; talvez o Chefe tenha seu próprio submarino aqui em algum lugar também?
+You
+appear back inside your own mini submarine! Each Historian drives their
+mini submarine in a different direction; maybe the Chief has his own
+submarine down here somewhere as well?
 
-Você olha para cima para ver uma vasta escola de peixe-lanterna nadando por você. Em uma inspeção mais próxima, eles parecem bastante ansiosos, então você dirige seu mini submarino para ver se você pode ajudar.
+You look up to see a vast school of [lanternfish](https://adventofcode.com/2021/day/6) swimming past you. On closer inspection, they seem quite anxious, so you drive your mini submarine over to see if you can help.
 
-Como as populações de peixes-lanterna crescem rapidamente, elas precisam de muito alimento e esse alimento precisa ser armazenado em algum lugar. É por isso que estes peixes-lanterna construíram elaborados complexos de armazém operados por robôs!
+Because lanternfish populations grow rapidly, they need a lot of
+food, and that food needs to be stored somewhere. That's why these
+lanternfish have built elaborate warehouse complexes operated by robots!
 
-Esses peixes-lanterna parecem tão ansiosos porque perderam o controle do robô que opera um de seus armazéns mais importantes! Atualmente, está funcionando de forma, empurrando caixas no armazém sem consideração pela logística de peixe-lanterna ou estratégias de gerenciamento de estoque de peixe-lanterna.
+These lanternfish seem so anxious because they have lost control of
+the robot that operates one of their most important warehouses! It is
+currently running amok, pushing around boxes in the warehouse with no regard for lanternfish logistics *or* lanternfish inventory management strategies.
 
-Neste momento, nenhum dos peixes-lanterna é corajoso o suficiente para nadar até um robô imprevisível para que eles possam desligá-lo. No entanto, se você pudesse antecipar os movimentos do robô, talvez eles pudessem encontrar uma opção segura.
+Right now, none of the lanternfish are brave enough to swim up to an
+unpredictable robot so they could shut it off. However, if you could
+anticipate the robot's movements, maybe they could find a safe option.
 
-O peixe-lanterna já tem um mapa do armazém e uma lista de movimentos que o robô tentará fazer (sua entrada de quebra-cabeça). O problema é que os movimentos às vezes falham à medida que as caixas são deslocadas, tornando os movimentos reais do robô difíceis de prever.
+The lanternfish already have a map of the warehouse and a list of movements the robot will *attempt*
+ to make (your puzzle input). The problem is that the movements will
+sometimes fail as boxes are shifted around, making the actual movements
+of the robot difficult to predict.
 
-Por exemplo:
+For example:
 
+```
 ##########
 #..O..O.O#
 #......O.#
@@ -35,13 +48,24 @@ vvv<<^>^v^^><<>>><>^<<><^vv^^<>vvv<>><^^v>^>vv<>v<<<<v<^v>^<^^>>>^<v<v
 <><^^>^^^<><vvvvv^v<v<<>^v<v>v<<^><<><<><<<^^<<<^<<>><<><^^^>^^<>^>v<>
 ^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>
 v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^
+```
 
-Como o robô (@) tenta mover-se, se houver alguma caixa (O) na forma, o robô também tentará empurrar essas caixas. No entanto, se essa ação faria com que o robô ou uma caixa se movesse para uma parede (#), nada se move em vez disso, incluindo o robô. As posições iniciais destes são mostrados no mapa na parte superior do documento que o peixe-lanterna lhe deu.
+As the robot (`@`) attempts to move, if there are any boxes (`O`)
+ in the way, the robot will also attempt to push those boxes. However,
+if this action would cause the robot or a box to move into a wall (`#`),
+ nothing moves instead, including the robot. The initial positions of
+these are shown on the map at the top of the document the lanternfish
+gave you.
 
-O restante do documento descreve o movimentos (^ para cima, v para baixo, < para a esquerda, > por direito) que o robô tentará fazer, em ordem. (Os movimentos formam uma única sequência gigante; eles são divididos em várias linhas apenas para facilitar a cópia-colagem. As linhas novas dentro da sequência de movimento devem ser ignoradas.)
+The rest of the document describes the *moves* (`^` for up, `v` for down, `<` for left, `>`
+ for right) that the robot will attempt to make, in order. (The moves
+form a single giant sequence; they are broken into multiple lines just
+to make copy-pasting easier. Newlines within the move sequence should be
+ ignored.)
 
-Aqui está um exemplo menor para começar:
+Here is a smaller example to get started:
 
+```
 ########
 #..O.O.#
 ##@.O..#
@@ -52,9 +76,11 @@ Aqui está um exemplo menor para começar:
 ########
 
 <^^>>>vv<v>>v<<
+```
 
-Se o robô tentasse a sequência de movimentos, ele empurraria as caixas da seguinte forma:
+Were the robot to attempt the given sequence of moves, it would push around the boxes as follows:
 
+```
 Initial state:
 ########
 #..O.O.#
@@ -214,9 +240,11 @@ Move <:
 #...O..#
 #...O..#
 ########
+```
 
-O exemplo maior tem muito mais movimentos; depois que o robô terminou esses movimentos, o armazém ficaria assim:
+The larger example has many more moves; after the robot has finished those moves, the warehouse would look like this:
 
+```
 ##########
 #.O.O.OOO#
 #........#
@@ -227,39 +255,51 @@ O exemplo maior tem muito mais movimentos; depois que o robô terminou esses mov
 #O.....OO#
 #OO....OO#
 ##########
+```
 
-O peixe-lanterna usa seu próprio sistema de posicionamento de mercadorias personalizado (GPS) para rastrear os locais das caixas. A coordenada GPS de uma caixa é igual a 100 vezes a sua distância da borda superior do mapa mais a sua distância da borda esquerda do mapa. (Este processo não pára em azulejos de parede; meça todo o caminho até as bordas do mapa.)
+The lanternfish use their own custom Goods Positioning System (GPS for short) to track the locations of the boxes. The *GPS coordinate*
+ of a box is equal to 100 times its distance from the top edge of the
+map plus its distance from the left edge of the map. (This process does
+not stop at wall tiles; measure all the way to the edges of the map.)
 
-Então, a caixa mostrada abaixo tem uma distância de 1 da borda superior do mapa e 4 da borda esquerda do mapa, resultando em uma coordenada GPS de 100 * 1 + 4 = 104.
+So, the box shown below has a distance of `1` from the top edge of the map and `4` from the left edge of the map, resulting in a GPS coordinate of `100 * 1 + 4 = 104`.
 
+```
 #######
 #...O..
 #......
+```
 
-O peixe-lanterna gostaria de saber o soma de todas as coordenadas GPS das caixas depois que o robô termina de se mover. No exemplo maior, a soma de todas as coordenadas GPS de todas as caixas é 10092. No exemplo menor, a soma é 2028.
+The lanternfish would like to know the *sum of all boxes' GPS coordinates* after the robot finishes moving. In the larger example, the sum of all boxes' GPS coordinates is `<em>10092</em>`. In the smaller example, the sum is `<em>2028</em>`.
 
-Preveja o movimento do robô e das caixas no armazém. Depois que o robô termina de se mover, qual é a soma de todas as coordenadas GPS de todas as caixas?
+Predict the motion of the robot and boxes in the warehouse. After the robot is finished moving, *what is the sum of all boxes' GPS coordinates?*
 
-A sua resposta de puzzle foi 1294459.
+Your puzzle answer was `1294459`.
 
-A primeira metade deste puzzle está completa! Ele fornece uma estrela dourada: *
---- Parte Dois ---
+The first half of this puzzle is complete! It provides one gold star: *
 
-O peixe-lanterna usa suas informações para encontrar um momento seguro para nadar e desligar o robô com defeito! Assim que eles começam a preparar um festival em sua homenagem, os relatórios começam a chegar que o robô de um segundo armazém também está funcionando mal.
+## --- Part Two ---
 
-O layout deste armazém é surpreendentemente semelhante ao que você acabou de ajudar. Há uma diferença fundamental: tudo, exceto o robô, é duas vezes maior! A lista de movimentos do robô não muda.
+The
+lanternfish use your information to find a safe moment to swim in and
+turn off the malfunctioning robot! Just as they start preparing a
+festival in your honor, reports start coming in that a *second* warehouse's robot is *also* malfunctioning.
 
-Para obter o mapa do armazém mais amplo, comece com o seu mapa original e, para cada azulejo, faça as seguintes alterações:
+This warehouse's layout is surprisingly similar to the one you just
+helped. There is one key difference: everything except the robot is  *twice as wide* ! The robot's list of movements doesn't change.
 
-    Se o azulejo é #, o novo mapa contém ## em vez disso.
-    Se o azulejo é O, o novo mapa contém [] em vez disso.
-    Se o azulejo é ., o novo mapa contém .. em vez disso.
-    Se o azulejo é @, o novo mapa contém @. em vez disso.
+To get the wider warehouse's map, start with your original map and, for each tile, make the following changes:
 
-Isso produzirá um novo mapa de armazém que é duas vezes mais largo e com caixas largas que são representadas por []. (O robô não muda de tamanho.)
+* If the tile is `#`, the new map contains `##` instead.
+* If the tile is `O`, the new map contains `[]` instead.
+* If the tile is `.`, the new map contains `..` instead.
+* If the tile is `@`, the new map contains `@.` instead.
 
-O exemplo maior de antes agora ficaria assim:
+This will produce a new warehouse map which is twice as wide and with wide boxes that are represented by `[]`. (The robot does not change size.)
 
+The larger example from before would now look like this:
+
+```
 ####################
 ##....[]....[]..[]##
 ##............[]..##
@@ -270,9 +310,13 @@ O exemplo maior de antes agora ficaria assim:
 ##..[][]..[]..[][]##
 ##........[]......##
 ####################
+```
 
-Como as caixas agora são duas vezes mais largas, mas o robô ainda tem o mesmo tamanho e velocidade, as caixas podem ser alinhadas de tal forma que empurram diretamente duas outras caixas ao mesmo tempo. Por exemplo, considere esta situação:
+Because boxes are now twice as wide but the robot is still the same
+size and speed, boxes can be aligned such that they directly push two
+other boxes at once. For example, consider this situation:
 
+```
 #######
 #...#.#
 #.....#
@@ -282,9 +326,11 @@ Como as caixas agora são duas vezes mais largas, mas o robô ainda tem o mesmo 
 #######
 
 <vv<<^^<<^^
+```
 
-Depois de redimensionar apropriadamente este mapa, o robô empurraria essas caixas da seguinte forma:
+After appropriately resizing this map, the robot would push around these boxes as follows:
 
+```
 Initial state:
 ##############
 ##......##..##
@@ -392,15 +438,22 @@ Move ^:
 ##..........##
 ##..........##
 ##############
+```
 
-Este armazém também usa GPS para localizar as caixas. Para essas caixas maiores, as distâncias são medidas desde a borda do mapa até a borda mais próxima da caixa em questão. Então, a caixa mostrada abaixo tem uma distância de 1 da borda superior do mapa e 5 da borda esquerda do mapa, resultando em uma coordenada GPS de 100 * 1 + 5 = 105.
+This warehouse also uses GPS to locate the boxes. For these larger
+boxes, distances are measured from the edge of the map to the closest
+edge of the box in question. So, the box shown below has a distance of `1` from the top edge of the map and `5` from the left edge of the map, resulting in a GPS coordinate of `100 * 1 + 5 = 105`.
 
+```
 ##########
 ##...[]...
 ##........
+```
 
-Na versão ampliada do exemplo maior de cima, depois que o robô terminou todos os seus movimentos, o armazém ficaria assim:
+In the scaled-up version of the larger example from above, after the
+robot has finished all of its moves, the warehouse would look like this:
 
+```
 ####################
 ##[].......[].[][]##
 ##[]...........[].##
@@ -411,7 +464,8 @@ Na versão ampliada do exemplo maior de cima, depois que o robô terminou todos 
 ##..@......[].[][]##
 ##......[][]..[]..##
 ####################
+```
 
-A soma das coordenadas GPS dessas caixas é 9021.
+The sum of these boxes' GPS coordinates is `<em>9021</em>`.
 
-Preveja o movimento do robô e das caixas neste novo armazém ampliado. Qual é a soma das coordenadas GPS finais de todas as caixas?
+Predict the motion of the robot and boxes in this new, scaled-up warehouse. *What is the sum of all boxes' final GPS coordinates?*
