@@ -1,3 +1,5 @@
+from time import perf_counter
+
 def resolver(alvo: int, numeros: list, acumulado: int, idx: int, parte_2: bool = False):
     if idx == len(numeros):
         return acumulado == alvo
@@ -25,19 +27,19 @@ def main():
     with open('input.txt', 'r', encoding='utf-8') as arquivo:
         arquivo = [linha.replace(':', '') for linha in arquivo.read().split('\n')]
 
-    i = 0
-    while i <= 1:
+    for i in range(1, 3):
         total = 0
 
+        inicio = perf_counter()
         for linha in arquivo:
             partes = list(map(int, linha.split()))
             alvo, numeros = partes[0], partes[1:]
 
-            if resolver(alvo, numeros, numeros[0], 1, False if i < 1 else True):
+            if resolver(alvo, numeros, numeros[0], 1, False if i < 2 else True):
                 total += alvo
-        i += 1
+        fim = perf_counter()
 
-        print(f'Total parte {i}: {total}')
+        print(f'Total parte {i}: {total} - execusão em {fim - inicio:.4f}s.')
 
 
 if __name__ == '__main__':
